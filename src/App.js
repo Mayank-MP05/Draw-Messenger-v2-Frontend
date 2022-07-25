@@ -2,7 +2,7 @@ import "./index.scss";
 import Routes from "./routes";
 
 const App = () => {
-  return <Routes />;
+  return <>App</>;
 };
 
 export default App;

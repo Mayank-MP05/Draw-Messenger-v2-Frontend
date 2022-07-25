@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import TestComp from "./components/test";
 function Home({ route }) {
   return (
     <div>
@@ -10,8 +11,9 @@ function Home({ route }) {
 const RouterLocal = () => {
   return (
     <Router>
-      <Routes>
+      <Routes>0
         <Route path="/landing" element={<Home route="/landing" />} />
+        <Route path="/test" element={<TestComp />} />
         <Route path="/" element={<Home route="home" />} />
       </Routes>
     </Router>
