@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import DrawMessengerLogo from "../assets/draw-logo-192.png";
+import DrawMessengerLogo from "../../assets/draw-logo-192.png";
 
 const Navbar = () => {
   return (

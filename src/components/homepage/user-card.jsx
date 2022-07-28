@@ -1,18 +1,18 @@
 import React from "react";
-import Button from "../generic-button";
+import Button from "../common/generic-button";
 import EditIcon from "../../assets/icons/edit-profile.svg";
 
 const UserCard = () => {
   return (
     <div className=" hidden md:block py-2 md:w-full md:mx-2 border-t-4 border-green-400 shadow-xl">
-      <Button
+      {/* <Button
         className="m-1 ml-auto"
         buttonText="Edit"
         iconPositon={0}
         iconSrc={EditIcon}
         iconStyles="mr-3"
         iconWidth={5}
-      />
+      /> */}
       <div className="bg-white p-3 ">
         <div className="image overflow-hidden">
           <img
