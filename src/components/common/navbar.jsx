@@ -1,9 +1,37 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import DrawMessengerLogo from "../../assets/draw-logo-192.png";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import LoaderIcon from "../../assets/icons/loading-spinner-icon.svg";
+
+const provider = new GoogleAuthProvider();
+const auth = getAuth();
 
 const Navbar = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = 1;
+
+  const loginBtnClick = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        console.log("result: ", result);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+        console.log("error: ", error);
+      });
+  };
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 shadow-lg">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
@@ -22,6 +50,7 @@ const Navbar = () => {
             <button
               type="button"
               className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
+              onClick={loginBtnClick}
             >
               <svg
                 className="mr-2 -ml-1 w-4 h-4"
@@ -39,6 +68,7 @@ const Navbar = () => {
                 ></path>
               </svg>
               Sign in with Google
+              <img src={LoaderIcon} className="animate-spin ml-2 mr-1 w-6 h-6" alt="" />
             </button>
           ) : (
             <div className="flex flex-row">
