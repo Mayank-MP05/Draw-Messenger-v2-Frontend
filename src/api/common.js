@@ -1,11 +1,38 @@
 import axios from "axios";
 
-const commonAPIClient = axios.create({
-  baseURL: "https://localhost:9000/",
-  timeout: 3000,
-  headers: {
-    Accept: "application/json",
-  },
-});
-
-export default commonAPIClient;
+const API_ENDPOINT = "http://localhost:9000";
+const api = (
+  route = "/",
+  payload = {},
+  method = "POST",
+  successFn,
+  errorFn
+) => {
+  axios({
+    method,
+    url: `${API_ENDPOINT}${route}`,
+    timeout: 3000,
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then(function (response) {
+      console.log(
+        `%c ${method} `,
+        "background: green;color:white",
+        `${route} - Response: `,
+        response.data
+      );
+      successFn(response.data);
+    })
+    .catch((err) => {
+      console.log(
+        `%c ${method} `,
+        "background: red;color:white",
+        `${route} - Error: `,
+        err
+      );
+      errorFn(err);
+    });
+};
+export default api;
