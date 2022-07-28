@@ -15,6 +15,7 @@ const RouterLocal = () => {
       <Routes>
         0
         <Route path="/landing" element={<Home route="/landing" />} />
+        <Route path="/chat" element={<App />} />
         <Route path="/test" element={<TestComp />} />
         <Route path="/" element={<App />} />
       </Routes>

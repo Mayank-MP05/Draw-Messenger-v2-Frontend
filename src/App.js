@@ -5,6 +5,7 @@ import "./index.scss";
 import Routes from "./routes";
 
 import GroupIcon from "./assets/icons/group-icon.svg";
+import TestComp from "./components/test";
 
 const App = () => {
   return (
@@ -16,18 +17,19 @@ const App = () => {
           <UserCard />
         </div>
         <div className="md:w-8/12 p-2 sm:w-full">
-          <div className="flex flex-row">
+          {/* <div className="flex flex-row">
             <img className="w-12 h-12 px-2" src={GroupIcon} alt="Group Logo" />
             <h2 className="text-xl font-bold my-2 mr-0 ">Groups</h2>
           </div>
-          <div className="w-full h-full overflow-y-auto">
+          <div className="w-full h-full overflow-hidden ">
             <GroupCard />
             <GroupCard />
             <GroupCard />
             <GroupCard />
             <GroupCard />
             <GroupCard />
-          </div>
+          </div> */}
+          <TestComp />
         </div>
       </div>
     </>
