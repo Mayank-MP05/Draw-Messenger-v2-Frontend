@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import Picker from "emoji-picker-react";
+import ChatHeader from "./chat-header";
 
 const ChatComponent = () => {
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+  };
+
   return (
     <div className="w-full">
-      <div className="relative flex items-center p-3 border-b border-gray-300">
-        <img
-          className="object-cover w-10 h-10 rounded-full"
-          src="https://cdn.pixabay.com/photo/2018/01/15/07/51/woman-3083383__340.jpg"
-          alt="username"
-        />
-        <span className="block ml-2 font-bold text-gray-600">Emma</span>
-        <span className="absolute w-3 h-3 bg-green-600 rounded-full left-10 top-3"></span>
-      </div>
+      <ChatHeader />
       <div className="relative w-full p-6 overflow-y-auto overflow-x-hidden h-4/6">
         <ul
           className="space-y-2 overflow-y-auto overflow-x-hidden h-4/6"
@@ -141,6 +141,7 @@ const ChatComponent = () => {
           </li>
         </ul>
       </div>
+      <Picker onEmojiClick={onEmojiClick} />
 
       <div className="flex items-center justify-between w-full p-3 border-t border-gray-300">
         <button>
@@ -175,7 +176,6 @@ const ChatComponent = () => {
             />
           </svg>
         </button>
-
         <input
           type="text"
           placeholder="Message"
