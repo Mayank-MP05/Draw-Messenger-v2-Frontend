@@ -14,8 +14,10 @@ const DrawingCanvasComponent = () => {
   };
   return (
     <div className="h-40 w-full flex flex-row bg-white rounded-lg border-2 shadow-lg p-2">
-      <div className="flex flex-col">
-        <h5 className="text-bold font-lg p-1">Choose the Color:</h5>
+      <div className="flex flex-col hidden md:block">
+        <h5 className="text-sm font-bold p-1 md:flex flex-row w-full">
+          Brush Color
+        </h5>
         <CirclePicker
           width={`150px`}
           colors={[
@@ -33,19 +35,40 @@ const DrawingCanvasComponent = () => {
           onChangeComplete={handleColorChange}
         />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col md:hidden block items-center justify-center">
+        <CirclePicker
+          width={`50px`}
+          colors={["#f44336", "#009688", "#FFFF00"]}
+          color={colorSelected}
+          onChangeComplete={handleColorChange}
+        />
+      </div>
+      <div className="flex flex-col hidden md:block">
         <CanvasDraw
           ref={(canvasDraw) => setSaveableCanvas(canvasDraw)}
           //   onChange={(e) => console.log(e)}
           brushColor={colorSelected}
           brushRadius={+brushRadius}
           canvasWidth={400}
-          canvasHeight={400}
+          canvasHeight={150}
+        />
+      </div>{" "}
+      <div className="flex flex-col md:hidden block">
+        <CanvasDraw
+          ref={(canvasDraw) => setSaveableCanvas(canvasDraw)}
+          //   onChange={(e) => console.log(e)}
+          brushColor={colorSelected}
+          brushRadius={+brushRadius}
+          canvasWidth={175}
+          canvasHeight={125}
         />
       </div>
-      <div className="flex flex-col btn-group justify-ce nter items-center mx-auto">
-        <h5 className="text-bold font-lg p-1">Brush Size</h5>
+      <div className="flex flex-col btn-group justify-center items-center mx-auto">
+        <h5 className="text-sm font-bold p-1 hidden md:flex flex-row w-full">
+          Brush Size
+        </h5>
         <RangeStepInput
+          className="w-6/12 md:w-full m-auto"
           max={"25"}
           min={"2"}
           value={`${brushRadius}`}
