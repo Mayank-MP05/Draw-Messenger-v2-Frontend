@@ -32,7 +32,7 @@ const MessageWritePanel = () => {
 
       <div className="flex items-center justify-between w-full p-3 border-t border-gray-300">
         <button
-          className="btn flex flex-row border-2 rounded-lg p-2 mx-1 cursor-pointer hover:bg-blue-200"
+          className="btn flex flex-row border-2 rounded-lg p-2 items-center justify-center mx-1 cursor-pointer hover:bg-blue-200"
           onClick={() => setShowEmojiPanel(!showEmojiPanel)}
         >
           <svg
@@ -51,7 +51,7 @@ const MessageWritePanel = () => {
           </svg>
           <p className="text-normal font-bold mx-1 hidden md:block ">Emoji</p>
         </button>
-        <button className="btn flex flex-row border-2 rounded-lg p-2 mx-1 cursor-pointer hover:bg-blue-200">
+        <button className="btn flex flex-row border-2 rounded-lg p-2 items-center justify-center mx-1 cursor-pointer hover:bg-blue-200">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5 text-gray-500"
@@ -76,23 +76,9 @@ const MessageWritePanel = () => {
           value={messageInput}
           onChange={messageChangeHandler}
         />
-        <button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-5 h-5 text-gray-500"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-            />
-          </svg>
-        </button>
-        <button type="submit">
+
+        <button className="btn flex flex-row border-2 rounded-lg p-2 items-center justify-center mx-1 cursor-pointer hover:bg-blue-200">
+          <p className="text-normal font-bold mx-1 hidden md:block ">Send</p>
           <svg
             className="w-5 h-5 text-gray-500 origin-center transform rotate-90"
             xmlns="http://www.w3.org/2000/svg"
