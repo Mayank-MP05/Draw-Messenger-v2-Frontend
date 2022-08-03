@@ -38,7 +38,7 @@ const DrawingCanvasComponent = () => {
           ref={(canvasDraw) => setSaveableCanvas(canvasDraw)}
           //   onChange={(e) => console.log(e)}
           brushColor={colorSelected}
-          brushRadius={brushRadius}
+          brushRadius={+brushRadius}
           canvasWidth={400}
           canvasHeight={400}
         />
