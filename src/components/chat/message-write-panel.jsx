@@ -1,10 +1,12 @@
 import Picker from "emoji-picker-react";
 import React, { useState } from "react";
+import DrawingCanvasComponent from "./drawing-canvas.component";
 
 const MessageWritePanel = () => {
   const [messageInput, setMessageInput] = useState("");
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [showEmojiPanel, setShowEmojiPanel] = useState(false);
+  const [showDrawingCanvas, setShowDrawingCanvas] = useState(true);
 
   const onEmojiClick = (event, emojiObject) => {
     setChosenEmoji(emojiObject);
@@ -12,6 +14,7 @@ const MessageWritePanel = () => {
     const { emoji } = emojiObject;
     setMessageInput(`${messageInput}${emoji || ""}`);
     setShowEmojiPanel(false);
+    setShowDrawingCanvas(false);
   };
 
   const messageChangeHandler = (e) => {
@@ -24,6 +27,16 @@ const MessageWritePanel = () => {
         {showEmojiPanel ? (
           <div className="absolute  bottom-2 left-2">
             <Picker onEmojiClick={onEmojiClick} />
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+
+      <div className="relative ">
+        {showDrawingCanvas ? (
+          <div className="absolute  bottom-2 left-2 w-full">
+            <DrawingCanvasComponent />
           </div>
         ) : (
           ""
@@ -51,7 +64,10 @@ const MessageWritePanel = () => {
           </svg>
           <p className="text-normal font-bold mx-1 hidden md:block ">Emoji</p>
         </button>
-        <button className="btn flex flex-row border-2 rounded-lg p-2 items-center justify-center mx-1 cursor-pointer hover:bg-blue-200">
+        <button
+          onClick={() => setShowDrawingCanvas(!showDrawingCanvas)}
+          className="btn flex flex-row border-2 rounded-lg p-2 items-center justify-center mx-1 cursor-pointer hover:bg-blue-200"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5 text-gray-500"
