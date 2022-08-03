@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn-group {
+  button {
+    @apply cursor-pointer px-2 m-1 rounded-sm bg-purple-600 hover:bg-purple-700 text-white;
+  }
+}
