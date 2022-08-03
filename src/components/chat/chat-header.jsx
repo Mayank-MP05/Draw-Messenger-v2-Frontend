@@ -1,9 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import BackBtnIcon from "../../assets/icons/back-btn-icon.svg";
-const ChatHeader = () => {
+const ChatHeader = ({}) => {
+  const navigate = useNavigate();
+  const changeRoute = () => {
+    navigate("/");
+  };
   return (
     <div className="relative flex items-center p-3 border-b border-gray-300">
-      <button className=" mx-2" onClick={() => {}}>
+      <button className=" mx-2" onClick={changeRoute}>
         <img src={BackBtnIcon} className=" h-10 w-10 " alt="" />
       </button>
       <img
