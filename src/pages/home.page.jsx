@@ -4,13 +4,13 @@ import Navbar from "../components/common/navbar";
 import GroupCard from "../components/homepage/group-card";
 import GroupIcon from "../assets/icons/group-icon.svg";
 
-const HomePage = () => {
+const HomePage = ({ userHandler }) => {
   return (
     <>
       <div className="flex flex-row rounded-xl mt-6 mx-auto w-[80%] shadow-2xl">
         <div className="w-4/12 p-2 hidden md:block">
           {" "}
-          <UserCard />
+          <UserCard userHandler={userHandler} />
         </div>
         <div className="md:w-8/12 p-2 sm:w-full">
           <div className="flex flex-row">

@@ -28,7 +28,11 @@ const RouterLocal = ({ isLoggedInHandler, userHandler }) => {
             )
           }
         />
-        <Route path="/group/:id" element={<ChatViewHomePage />} />
+        <Route
+          path="/group/:id"
+          element={<ChatViewHomePage />}
+          userHandler={userHandler}
+        />
         <Route path="/test" element={<TestComp />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>

@@ -9,8 +9,8 @@ const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
 const Navbar = ({ userHandler, isLoggedInHandler }) => {
-  const [loggedInUser, setLoggedInUser] = userHandler || [() => {}, () => {}];
-  const [isLoggedIn, setIsLoggedIn] = isLoggedInHandler || [() => {}, () => {}];
+  const [loggedInUser, setLoggedInUser] = userHandler;
+  const [isLoggedIn, setIsLoggedIn] = isLoggedInHandler;
 
   const loginBtnClick = () => {
     signInWithPopup(auth, provider)
@@ -36,6 +36,7 @@ const Navbar = ({ userHandler, isLoggedInHandler }) => {
         console.log(error);
       });
   };
+
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 shadow-lg">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
@@ -50,7 +51,7 @@ const Navbar = ({ userHandler, isLoggedInHandler }) => {
           </span>
         </Link>
         <div className="ml-auto">
-          {isLoggedIn ? (
+          {!isLoggedIn ? (
             <button
               type="button"
               className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
