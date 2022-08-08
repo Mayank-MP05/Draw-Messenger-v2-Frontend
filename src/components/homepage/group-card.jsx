@@ -10,15 +10,20 @@ const getRandomTailwindColor = () => {
   return tailwindColors[randomIdx];
 };
 
-const GroupCard = ({ groupData }) => {
+const GroupCard = ({ groupData, groupHandler }) => {
+  const [selectedGroup, setSelectedGroup] = groupHandler;
   const navigate = useNavigate();
   const { name, _id, profilePic, description, tags } = groupData;
+
+  const onGroupLinkClick = () => {
+    setSelectedGroup(groupData);
+    navigate(`/group/${_id}`);
+  };
+
   return (
     <div
       className="w-full md:p-3 my-2 cursor-pointer select-none"
-      onClick={() => {
-        navigate(`/group/${_id}`);
-      }}
+      onClick={onGroupLinkClick}
     >
       <div className="flex flex-row rounded overflow-hidden h-auto border rounded-t-xl shadow-lg">
         <img
@@ -46,7 +51,7 @@ const GroupCard = ({ groupData }) => {
           const color = getRandomTailwindColor();
           return (
             <h5
-              className={`text-sm md:text-base md:font-bold bg-${color}-800 text-white p-[3px] m-[2px] md:p-2 md:m-1 rounded-lg hover:underline hover:bg-${color}-200 hover:text-white`}
+              className={`text-sm md:text-base md:font-bold bg-${color}-800 text-white p-[3px] m-[2px] md:p-2 md:m-1 rounded-lg hover:underline hover:bg-${color}-600 hover:text-white`}
             >
               #{tag}
             </h5>

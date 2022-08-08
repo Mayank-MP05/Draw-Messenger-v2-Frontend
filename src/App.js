@@ -8,6 +8,7 @@ import RouterLocal from "./routes";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState({});
+  const [selectedGroup, setSelectedGroup] = useState({});
   return (
     <>
       <Navbar
@@ -17,6 +18,7 @@ const App = () => {
       <RouterLocal
         isLoggedInHandler={[isLoggedIn, setIsLoggedIn]}
         userHandler={[loggedInUser, setLoggedInUser]}
+        groupHandler={[selectedGroup, setSelectedGroup]}
       />
     </>
   );

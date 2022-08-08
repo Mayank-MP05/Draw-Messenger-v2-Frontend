@@ -3,10 +3,12 @@ import Picker from "emoji-picker-react";
 import ChatHeader from "./chat-header";
 import MessageTile from "./message-tile";
 import MessageWritePanel from "./message-write-panel";
-const ChatComponent = () => {
+const ChatComponent = ({ groupHandler }) => {
+  const [selectedGroup, setSelectedGroup] = groupHandler;
+
   return (
     <div className="w-full">
-      <ChatHeader />
+      <ChatHeader groupHandler={groupHandler} />
       <div className="relative w-full p-6 overflow-y-auto overflow-x-hidden h-4/6">
         <ul
           className="space-y-2 overflow-y-auto overflow-x-hidden h-4/6"
