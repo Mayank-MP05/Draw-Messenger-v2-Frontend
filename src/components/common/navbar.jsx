@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import DrawMessengerLogo from "../../assets/draw-logo-192.png";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+} from "firebase/auth";
 import LoaderIcon from "../../assets/icons/loading-spinner-icon.svg";
 import { signOut } from "firebase/auth";
 
@@ -36,6 +41,19 @@ const Navbar = ({ userHandler, isLoggedInHandler }) => {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user);
+        setLoggedInUser(user);
+        setIsLoggedIn(true);
+      } else {
+        setLoggedInUser({});
+        setIsLoggedIn(false);
+      }
+    });
+  }, []);
 
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 shadow-lg">
