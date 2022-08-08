@@ -33,8 +33,12 @@ const HomePage = ({ userHandler, groupHandler }) => {
             <h2 className="text-xl font-bold my-2 mr-0 ">Groups</h2>
           </div>
           <div className="w-full h-full overflow-hidden ">
-            {groupsList.map((singleGrpObj) => (
-              <GroupCard groupData={singleGrpObj} groupHandler={groupHandler} />
+            {groupsList.map((singleGrpObj, idx) => (
+              <GroupCard
+                key={idx}
+                groupData={singleGrpObj}
+                groupHandler={groupHandler}
+              />
             ))}
           </div>
         </div>

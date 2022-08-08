@@ -47,11 +47,12 @@ const GroupCard = ({ groupData, groupHandler }) => {
         <h5 className="text-sm md:text-base font-bold p-[2px] m-[2px] md:p-2 md:m-1 rounded-lg">
           Topics:{" "}
         </h5>
-        {tags.map((tag) => {
+        {tags.map((tag, idx) => {
           const color = getRandomTailwindColor();
           return (
             <h5
               className={`text-sm md:text-base md:font-bold bg-${color}-800 text-white p-[3px] m-[2px] md:p-2 md:m-1 rounded-lg hover:underline hover:bg-${color}-600 hover:text-white`}
+              key={idx}
             >
               #{tag}
             </h5>
