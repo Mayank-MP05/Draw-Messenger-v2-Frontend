@@ -6,7 +6,6 @@ import Navbar from "../components/common/navbar";
 const ChatViewHomePage = () => {
   return (
     <>
-      <Navbar />
       <div className="flex flex-row rounded-xl mt-6 mx-auto w-[80%] shadow-2xl">
         <div className="w-4/12 p-2 hidden md:block">
           {" "}

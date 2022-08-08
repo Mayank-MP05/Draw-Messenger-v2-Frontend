@@ -3,33 +3,37 @@ import { Link } from "react-router-dom";
 import DrawMessengerLogo from "../../assets/draw-logo-192.png";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import LoaderIcon from "../../assets/icons/loading-spinner-icon.svg";
+import { signOut } from "firebase/auth";
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
-const Navbar = () => {
-  const isLoggedIn = 1;
+const Navbar = ({ userHandler, isLoggedInHandler }) => {
+  const [loggedInUser, setLoggedInUser] = userHandler || [() => {}, () => {}];
+  const [isLoggedIn, setIsLoggedIn] = isLoggedInHandler || [() => {}, () => {}];
 
   const loginBtnClick = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
-        console.log("result: ", result);
+        setLoggedInUser(user);
+        setIsLoggedIn(true);
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
         console.log("error: ", error);
+      });
+  };
+
+  const logoutBtnClick = () => {
+    signOut(auth)
+      .then(() => {
+        setLoggedInUser({});
+        setIsLoggedIn(false);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
   return (
@@ -68,12 +72,19 @@ const Navbar = () => {
                 ></path>
               </svg>
               Sign in with Google
-              <img src={LoaderIcon} className="animate-spin ml-2 mr-1 w-6 h-6" alt="" />
+              <img
+                src={LoaderIcon}
+                className="animate-spin ml-2 mr-1 w-6 h-6"
+                alt=""
+              />
             </button>
           ) : (
             <div className="flex flex-row">
               {/* <img src={} /> */}
-              <button className="inline-flex items-center h-10 px-5 text-red-800 transition-colors duration-150 bg-red-100 rounded-lg focus:shadow-outline hover:bg-red-200">
+              <button
+                className="inline-flex items-center h-10 px-5 text-red-800 transition-colors duration-150 bg-red-100 rounded-lg focus:shadow-outline hover:bg-red-200"
+                onClick={logoutBtnClick}
+              >
                 <svg className="w-5 h-5 mr-3 fill-current" viewBox="0 0 25 25">
                   <path fill="none" d="M0 0h24v24H0z" />
                   <path d="M4 18h2v2h12V4H6v2H4V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3zm2-7h7v2H6v3l-5-4 5-4v3z" />
