@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserCard from "../components/homepage/user-card";
 import Navbar from "../components/common/navbar";
 import GroupCard from "../components/homepage/group-card";
 import GroupIcon from "../assets/icons/group-icon.svg";
-
+import APIClient from "../api/common";
 const HomePage = ({ userHandler }) => {
+  const [groupsList, setgroupsList] = useState([]);
+  useEffect(() => {
+    APIClient({
+      route: "/group",
+      payload: {},
+      method: "GET",
+      successFn: (res) => {
+        setgroupsList(res.groups);
+      },
+      errorFn: (err) => {
+        console.log(err);
+      },
+    });
+  }, []);
   return (
     <>
       <div className="flex flex-row rounded-xl mt-6 mx-auto w-[80%] shadow-2xl">
@@ -18,12 +32,9 @@ const HomePage = ({ userHandler }) => {
             <h2 className="text-xl font-bold my-2 mr-0 ">Groups</h2>
           </div>
           <div className="w-full h-full overflow-hidden ">
-            <GroupCard />
-            <GroupCard />
-            <GroupCard />
-            <GroupCard />
-            <GroupCard />
-            <GroupCard />
+            {groupsList.map((singleGrpObj) => (
+              <GroupCard groupData={singleGrpObj} />
+            ))}
           </div>
         </div>
       </div>

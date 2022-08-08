@@ -1,17 +1,18 @@
 import axios from "axios";
 
 const API_ENDPOINT = "http://localhost:9000";
-const api = (
+const APIClient = ({
   route = "/",
   payload = {},
   method = "POST",
   successFn,
-  errorFn
-) => {
+  errorFn,
+}) => {
   axios({
     method,
     url: `${API_ENDPOINT}${route}`,
-    timeout: 3000,
+    data: payload,
+    timeout: 30000,
     headers: {
       Accept: "application/json",
     },
@@ -35,4 +36,4 @@ const api = (
       errorFn(err);
     });
 };
-export default api;
+export default APIClient;
