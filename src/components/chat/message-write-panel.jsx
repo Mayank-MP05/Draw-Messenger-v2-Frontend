@@ -1,8 +1,8 @@
 import Picker from "emoji-picker-react";
 import React, { useState } from "react";
 import DrawingCanvasComponent from "./drawing-canvas.component";
-
-const MessageWritePanel = () => {
+import { io } from "socket.io-client";
+const MessageWritePanel = ({ user, group }) => {
   const [messageInput, setMessageInput] = useState("");
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [showEmojiPanel, setShowEmojiPanel] = useState(false);
@@ -21,6 +21,42 @@ const MessageWritePanel = () => {
     const newMsg = e.target.value.trim();
     setMessageInput(newMsg);
   };
+
+  const msgSendBtnClickHandler = () => {
+    const msgObjToSend = {
+      type: "TEXT",
+      content: messageInput,
+      createdAt: new Date().getTime(),
+      groupId: group._id,
+      userId: "62e01d89b39acc922137766c",
+    };
+    const socket = io("http://localhost:9001");
+    socket.emit("chat", msgObjToSend, (response) => {
+      console.log(response);
+    });
+    socket.on("chat", (payload) => {
+      console.log("FROM SERVER: ", payload);
+    });
+  };
+
+  const drawingSendBtnClickHandler = (imgDataURI) => {
+    const msgObjToSend = {
+      type: "DRAW",
+      content: imgDataURI,
+      createdAt: new Date().getTime(),
+      groupId: group._id,
+      userId: "62e01d89b39acc922137766c",
+    };
+    const socket = io("http://localhost:9001");
+    socket.emit("chat", msgObjToSend, (response) => {
+      console.log(response);
+    });
+    socket.on("chat", (payload) => {
+      console.log("FROM SERVER: ", payload);
+    });
+    setShowDrawingCanvas(false);
+  };
+
   return (
     <>
       <div className="relative ">
@@ -36,7 +72,9 @@ const MessageWritePanel = () => {
       <div className="relative ">
         {showDrawingCanvas ? (
           <div className="absolute  bottom-2 left-2 w-full">
-            <DrawingCanvasComponent />
+            <DrawingCanvasComponent
+              drawingSendBtnClickHandler={drawingSendBtnClickHandler}
+            />
           </div>
         ) : (
           ""
@@ -99,7 +137,10 @@ const MessageWritePanel = () => {
           onChange={messageChangeHandler}
         />
 
-        <button className="btn flex flex-row border-2 rounded-lg p-2 items-center justify-center mx-1 cursor-pointer hover:bg-blue-200">
+        <button
+          className="btn flex flex-row border-2 rounded-lg p-2 items-center justify-center mx-1 cursor-pointer hover:bg-blue-200"
+          onClick={msgSendBtnClickHandler}
+        >
           <p className="text-normal font-bold mx-1 hidden md:block ">Send</p>
           <svg
             className="w-5 h-5 text-gray-500 origin-center transform rotate-90"

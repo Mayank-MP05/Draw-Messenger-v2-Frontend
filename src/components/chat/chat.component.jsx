@@ -5,6 +5,7 @@ import MessageTile from "./message-tile";
 import MessageWritePanel from "./message-write-panel";
 const ChatComponent = ({ groupHandler, userHandler }) => {
   const [selectedGroup, setSelectedGroup] = groupHandler;
+  const [user, setUser] = userHandler;
   console.log(userHandler);
   return (
     <div className="w-full">
@@ -16,7 +17,6 @@ const ChatComponent = ({ groupHandler, userHandler }) => {
         >
           {Array.from("x".repeat(10)).map((s) => (
             <MessageTile
-              
               isLoading={false}
               content="Just to say something"
               timestamp={"01:30PM"}
@@ -54,13 +54,14 @@ const ChatComponent = ({ groupHandler, userHandler }) => {
               groupId: "sdfkjsfhksd",
               content: "Message two from Chat.component.jsx 😂😂",
               title: "Google.ocm",
-              imgUrl: "https://images.unsplash.com/photo-1627483262268-9c2b5b2834b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8YmFja2dyb3VuZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+              imgUrl:
+                "https://images.unsplash.com/photo-1627483262268-9c2b5b2834b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8YmFja2dyb3VuZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
             }}
             timestamp={"01:30PM"}
           />
         </ul>
       </div>
-      <MessageWritePanel />
+      <MessageWritePanel user={user} group={selectedGroup} />
     </div>
   );
 };

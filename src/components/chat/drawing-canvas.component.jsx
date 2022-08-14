@@ -4,7 +4,7 @@ import ColorPickerComponent from "./color-picker.component";
 import CanvasDraw from "react-canvas-draw";
 // import InputRange from "react-input-range";
 import { RangeStepInput } from "react-range-step-input";
-const DrawingCanvasComponent = () => {
+const DrawingCanvasComponent = ({ drawingSendBtnClickHandler }) => {
   const [colorSelected, setColorSelected] = useState("#3f51b5");
   const [brushRadius, setBrushRadius] = useState(5);
   const [saveableCanvas, setSaveableCanvas] = useState(null);
@@ -12,6 +12,13 @@ const DrawingCanvasComponent = () => {
   const handleColorChange = (color) => {
     setColorSelected(color.hex);
   };
+
+  const sendBtnClickHandler = () => {
+    if (drawingSendBtnClickHandler)
+      drawingSendBtnClickHandler(saveableCanvas.getDataURL());
+    saveableCanvas.eraseAll();
+  };
+  
   return (
     <div className="h-40 w-full flex flex-row bg-white rounded-lg border-2 shadow-lg p-2">
       <div className="flex flex-col hidden md:block">
@@ -74,13 +81,7 @@ const DrawingCanvasComponent = () => {
           value={`${brushRadius}`}
           onChange={(e) => setBrushRadius(e.target.value)}
         />
-        <button
-          onClick={(e) => {
-            saveableCanvas.getDataURL();
-          }}
-        >
-          Send
-        </button>
+        <button onClick={sendBtnClickHandler}>Send</button>
         <button
           onClick={() => {
             saveableCanvas.eraseAll();
