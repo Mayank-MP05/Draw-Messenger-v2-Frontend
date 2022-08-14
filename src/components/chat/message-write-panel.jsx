@@ -2,7 +2,7 @@ import Picker from "emoji-picker-react";
 import React, { useState } from "react";
 import DrawingCanvasComponent from "./drawing-canvas.component";
 import { io } from "socket.io-client";
-const MessageWritePanel = ({ user, group }) => {
+const MessageWritePanel = ({ user, group, addMessageToQueue }) => {
   const [messageInput, setMessageInput] = useState("");
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [showEmojiPanel, setShowEmojiPanel] = useState(false);
@@ -18,25 +18,29 @@ const MessageWritePanel = ({ user, group }) => {
   };
 
   const messageChangeHandler = (e) => {
-    const newMsg = e.target.value.trim();
+    const newMsg = e.target.value;
     setMessageInput(newMsg);
   };
 
   const msgSendBtnClickHandler = () => {
-    const msgObjToSend = {
-      type: "TEXT",
-      content: messageInput,
-      createdAt: new Date().getTime(),
-      groupId: group._id,
-      userId: "62e01d89b39acc922137766c",
-    };
-    const socket = io("http://localhost:9001");
-    socket.emit("chat", msgObjToSend, (response) => {
-      console.log(response);
-    });
-    socket.on("chat", (payload) => {
-      console.log("FROM SERVER: ", payload);
-    });
+    if (messageInput) {
+      const msgObjToSend = {
+        type: "TEXT",
+        content: messageInput,
+        createdAt: new Date().getTime(),
+        groupId: group._id,
+        userId: "62e01d89b39acc922137766c",
+      };
+      const socket = io("http://localhost:9001");
+      socket.emit("chat", msgObjToSend, (response) => {
+        console.log(response);
+      });
+      socket.on("chat", (payload) => {
+        console.log("FROM SERVER: ", payload);
+      });
+      addMessageToQueue(msgObjToSend);
+      setMessageInput("");
+    }
   };
 
   const drawingSendBtnClickHandler = (imgDataURI) => {
@@ -54,6 +58,7 @@ const MessageWritePanel = ({ user, group }) => {
     socket.on("chat", (payload) => {
       console.log("FROM SERVER: ", payload);
     });
+    addMessageToQueue(msgObjToSend);
     setShowDrawingCanvas(false);
   };
 

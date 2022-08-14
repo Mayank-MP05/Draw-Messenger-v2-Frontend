@@ -2,7 +2,7 @@ import React from "react";
 import SpinnerIcon from "../../assets/icons/loading-spinner-icon.svg";
 import SingleTickIcon from "../../assets/icons/single-tick-icon.svg";
 
-const MessageTile = ({ isLoading, timestamp, msgData }) => {
+const MessageTile = ({ isLoading, msgData }) => {
   const msgDataLocal = msgData || {
     type: "TEXT",
     createdAt: new Date().getTime(),
@@ -72,7 +72,8 @@ const MessageTile = ({ isLoading, timestamp, msgData }) => {
           ""
         )}
         <span className="absolute flex flex row right-0 text-xs bg-gray-50 p-1">
-          {new Date(timestamp).toLocaleTimeString() || "Dummy 11.02 AM"}
+          {new Date(createdAt).toLocaleTimeString().slice(0, 5) ||
+            "Dummy 11.02 AM"}
           {isLoading ? (
             <img src={SpinnerIcon} className="animate-spin w-4 mx-1" />
           ) : (

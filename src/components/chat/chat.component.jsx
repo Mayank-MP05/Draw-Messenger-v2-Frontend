@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Picker from "emoji-picker-react";
 import ChatHeader from "./chat-header";
 import MessageTile from "./message-tile";
@@ -7,6 +7,13 @@ const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
   const [selectedGroup, setSelectedGroup] = groupHandler;
   const [user, setUser] = userHandler;
   const [localMessageList, setLocalMessageList] = useState([...messageList]);
+
+  useEffect(() => {
+  }, [messageList]);
+
+  const addMessageToQueue = (newMessageObj) => {
+    setLocalMessageList([...localMessageList, newMessageObj]);
+  };
 
   return (
     <div className="w-full">
@@ -17,11 +24,7 @@ const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
           style={{ height: "50vh" }}
         >
           {localMessageList.map((singleMsgObj) => (
-            <MessageTile
-              isLoading={false}
-              msgData={singleMsgObj}
-              timestamp={singleMsgObj.createdAt}
-            />
+            <MessageTile isLoading={false} msgData={singleMsgObj} />
           ))}
           <MessageTile
             isLoading={false}
@@ -62,7 +65,11 @@ const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
           />
         </ul>
       </div>
-      <MessageWritePanel user={user} group={selectedGroup} />
+      <MessageWritePanel
+        user={user}
+        group={selectedGroup}
+        addMessageToQueue={addMessageToQueue}
+      />
     </div>
   );
 };
