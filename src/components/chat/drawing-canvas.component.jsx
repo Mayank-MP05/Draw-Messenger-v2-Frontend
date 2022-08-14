@@ -4,21 +4,20 @@ import ColorPickerComponent from "./color-picker.component";
 import CanvasDraw from "react-canvas-draw";
 // import InputRange from "react-input-range";
 import { RangeStepInput } from "react-range-step-input";
+
 const DrawingCanvasComponent = ({ drawingSendBtnClickHandler }) => {
   const [colorSelected, setColorSelected] = useState("#3f51b5");
   const [brushRadius, setBrushRadius] = useState(5);
   const [saveableCanvas, setSaveableCanvas] = useState(null);
-
   const handleColorChange = (color) => {
     setColorSelected(color.hex);
   };
 
-  const sendBtnClickHandler = () => {
-    if (drawingSendBtnClickHandler)
-      drawingSendBtnClickHandler(saveableCanvas.getDataURL());
+  const sendBtnClickHandler = (imgUri) => () => {
+    if (drawingSendBtnClickHandler) drawingSendBtnClickHandler(imgUri);
     saveableCanvas.eraseAll();
   };
-  
+
   return (
     <div className="h-40 w-full flex flex-row bg-white rounded-lg border-2 shadow-lg p-2">
       <div className="flex flex-col hidden md:block">
@@ -52,7 +51,9 @@ const DrawingCanvasComponent = ({ drawingSendBtnClickHandler }) => {
       </div>
       <div className="flex flex-col hidden md:block">
         <CanvasDraw
-          ref={(canvasDraw) => setSaveableCanvas(canvasDraw)}
+          ref={(canvasDraw) => {
+            if (window.innerWidth > 600) setSaveableCanvas(canvasDraw);
+          }}
           //   onChange={(e) => console.log(e)}
           brushColor={colorSelected}
           brushRadius={+brushRadius}
@@ -62,7 +63,9 @@ const DrawingCanvasComponent = ({ drawingSendBtnClickHandler }) => {
       </div>{" "}
       <div className="flex flex-col md:hidden block">
         <CanvasDraw
-          ref={(canvasDraw) => setSaveableCanvas(canvasDraw)}
+          ref={(canvasDraw) => {
+            if (window.innerWidth <= 600) setSaveableCanvas(canvasDraw);
+          }}
           //   onChange={(e) => console.log(e)}
           brushColor={colorSelected}
           brushRadius={+brushRadius}
@@ -81,9 +84,17 @@ const DrawingCanvasComponent = ({ drawingSendBtnClickHandler }) => {
           value={`${brushRadius}`}
           onChange={(e) => setBrushRadius(e.target.value)}
         />
-        <button onClick={sendBtnClickHandler}>Send</button>
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
+            sendBtnClickHandler(saveableCanvas.getDataURL())();
+          }}
+        >
+          Send
+        </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
             saveableCanvas.eraseAll();
           }}
         >

@@ -9,6 +9,7 @@ const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
   const [localMessageList, setLocalMessageList] = useState([...messageList]);
 
   useEffect(() => {
+    setLocalMessageList(messageList);
   }, [messageList]);
 
   const addMessageToQueue = (newMessageObj) => {
