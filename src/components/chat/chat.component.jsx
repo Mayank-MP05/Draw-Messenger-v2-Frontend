@@ -14,36 +14,13 @@ const ChatComponent = ({ groupHandler }) => {
           className="space-y-2 overflow-y-auto overflow-x-hidden h-4/6"
           style={{ height: "50vh" }}
         >
-          {Array.from('x'.repeat(100)).map((s) => (
+          {Array.from("x".repeat(10)).map((s) => (
             <MessageTile
-              isLoading={true}
+              isLoading={false}
               content="Just to say something"
               timestamp={"01:30PM"}
             />
           ))}
-
-          <li className="flex justify-end">
-            <div className="relative max-w-xl px-4 py-2 text-gray-700 bg-gray-100 rounded shadow">
-              <span className="block">how are you?</span>
-            </div>
-          </li>
-          <li className="flex justify-end">
-            <div className="relative max-w-xl px-4 py-2 text-gray-700 bg-gray-100 rounded shadow">
-              <span className="block">how are you?</span>
-            </div>
-          </li>
-          <li className="flex justify-end">
-            <div className="relative max-w-xl px-4 py-2 text-gray-700 bg-gray-100 rounded shadow">
-              <span className="block">how are you?</span>
-            </div>
-          </li>
-          <li className="flex justify-start">
-            <div className="relative max-w-xl px-4 py-2 text-gray-700 rounded shadow">
-              <span className="block">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </span>
-            </div>
-          </li>
         </ul>
       </div>
       <MessageWritePanel />

@@ -6,7 +6,7 @@ const MessageWritePanel = () => {
   const [messageInput, setMessageInput] = useState("");
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [showEmojiPanel, setShowEmojiPanel] = useState(false);
-  const [showDrawingCanvas, setShowDrawingCanvas] = useState(true);
+  const [showDrawingCanvas, setShowDrawingCanvas] = useState(false);
 
   const onEmojiClick = (event, emojiObject) => {
     setChosenEmoji(emojiObject);
@@ -46,7 +46,10 @@ const MessageWritePanel = () => {
       <div className="flex items-center justify-between w-full p-3 border-t border-gray-300">
         <button
           className="btn flex flex-row border-2 rounded-lg p-2 items-center justify-center mx-1 cursor-pointer hover:bg-blue-200"
-          onClick={() => setShowEmojiPanel(!showEmojiPanel)}
+          onClick={() => {
+            setShowEmojiPanel(!showEmojiPanel);
+            setShowDrawingCanvas(false);
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +68,10 @@ const MessageWritePanel = () => {
           <p className="text-normal font-bold mx-1 hidden md:block ">Emoji</p>
         </button>
         <button
-          onClick={() => setShowDrawingCanvas(!showDrawingCanvas)}
+          onClick={() => {
+            setShowDrawingCanvas(!showDrawingCanvas);
+            setShowEmojiPanel(false);
+          }}
           className="btn flex flex-row border-2 rounded-lg p-2 items-center justify-center mx-1 cursor-pointer hover:bg-blue-200"
         >
           <svg
