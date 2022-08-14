@@ -60,10 +60,10 @@ const MessageTile = ({ isLoading, content, timestamp, msgData }) => {
               />
             </div>
             <div className="flex flex-col ">
-              <h2 className="text-xl font-bold">
+              <h2 className="text-xl font-bold px-2">
                 {title || "Sample Link Title"}
               </h2>
-              <p className="text-sm font-normal">
+              <p className="text-sm font-normal px-2 py-1">
                 {description || "Sample Link Description"}
               </p>
             </div>
