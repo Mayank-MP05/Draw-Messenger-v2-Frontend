@@ -5,35 +5,73 @@ import ChatComponent from "../components/chat/chat.component";
 import UserCard from "../components/homepage/user-card";
 import Navbar from "../components/common/navbar";
 import { useParams } from "react-router-dom";
+import APIClient from "../api/common";
 
 const ChatViewHomePage = ({ userHandler, groupHandler }) => {
   const [loggedInUser, setLoggedInUser] = userHandler;
+  const [loading, setLoading] = useState(true);
+  const [group, setGroup] = useState(null);
+  const [messageList, setMessageList] = useState([]);
 
   const { id } = useParams();
 
   useEffect(() => {
-    const socket = io("http://localhost:9001");
-    console.log(socket);
-    socket.emit("chat", { world: "game of thrones" }, (response) => {
-      console.log(response); // "got it"
+    setLoading(true);
+    APIClient({
+      route: "/group/getSingleGroup",
+      payload: {
+        groupId: id,
+      },
+      method: "POST",
+      successFn: (res) => {
+        setGroup(res);
+      },
+      errorFn: (err) => {
+        console.log(err);
+      },
+      finallyFn: () => {
+        setLoading(false);
+      },
     });
-    socket.on("chat", (payload) => {
-      console.log(payload);
+    setLoading(true);
+
+    APIClient({
+      route: "/group/getMessages",
+      payload: {
+        groupId: id,
+      },
+      method: "POST",
+      successFn: (res) => {
+        setMessageList(res);
+      },
+      errorFn: (err) => {
+        console.log(err);
+      },
+      finallyFn: () => {
+        setLoading(false);
+      },
     });
   }, []);
   return (
     <>
       <div className="flex flex-row rounded-xl md:mt-6 mx-auto w-[95%] md:w-[80%] shadow-2xl">
-        <div className="w-4/12 p-2 hidden md:block">
-          {" "}
-          <UserCard userHandler={userHandler} />
-        </div>
-        <div className="md:w-8/12 p-2 sm:w-full">
-          <ChatComponent
-            groupHandler={groupHandler}
-            userHandler={userHandler}
-          />
-        </div>
+        {loading ? (
+          "Loading..."
+        ) : (
+          <>
+            <div className="w-4/12 p-2 hidden md:block">
+              {" "}
+              <UserCard userHandler={userHandler} />
+            </div>
+            <div className="md:w-8/12 p-2 sm:w-full">
+              <ChatComponent
+                messageList={messageList}
+                groupHandler={[group, setGroup]}
+                userHandler={userHandler}
+              />
+            </div>
+          </>
+        )}
       </div>
     </>
   );

@@ -5,8 +5,9 @@ const APIClient = ({
   route = "/",
   payload = {},
   method = "POST",
-  successFn,
-  errorFn,
+  successFn = () => { },
+  errorFn = () => { },
+  finallyFn = () => { },
 }) => {
   axios({
     method,
@@ -34,6 +35,8 @@ const APIClient = ({
         err
       );
       errorFn(err);
-    });
+    }).finally(() => {
+      if (finallyFn) finallyFn()
+    })
 };
 export default APIClient;

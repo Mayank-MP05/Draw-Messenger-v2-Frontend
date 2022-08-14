@@ -3,10 +3,11 @@ import Picker from "emoji-picker-react";
 import ChatHeader from "./chat-header";
 import MessageTile from "./message-tile";
 import MessageWritePanel from "./message-write-panel";
-const ChatComponent = ({ groupHandler, userHandler }) => {
+const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
   const [selectedGroup, setSelectedGroup] = groupHandler;
   const [user, setUser] = userHandler;
-  console.log(userHandler);
+  const [localMessageList, setLocalMessageList] = useState([...messageList]);
+
   return (
     <div className="w-full">
       <ChatHeader groupHandler={groupHandler} />
@@ -15,11 +16,11 @@ const ChatComponent = ({ groupHandler, userHandler }) => {
           className="space-y-2 overflow-y-auto overflow-x-hidden h-4/6"
           style={{ height: "50vh" }}
         >
-          {Array.from("x".repeat(10)).map((s) => (
+          {localMessageList.map((singleMsgObj) => (
             <MessageTile
               isLoading={false}
-              content="Just to say something"
-              timestamp={"01:30PM"}
+              msgData={singleMsgObj}
+              timestamp={singleMsgObj.createdAt}
             />
           ))}
           <MessageTile
