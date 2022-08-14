@@ -4,6 +4,8 @@ import Navbar from "../components/common/navbar";
 import GroupCard from "../components/homepage/group-card";
 import GroupIcon from "../assets/icons/group-icon.svg";
 import APIClient from "../api/common";
+import groupList from "../utils/group-list.mock";
+
 const HomePage = ({ userHandler, groupHandler }) => {
   const [groupsList, setgroupsList] = useState([]);
 
@@ -17,6 +19,8 @@ const HomePage = ({ userHandler, groupHandler }) => {
       },
       errorFn: (err) => {
         console.log(err);
+        // In case API fails refer mock data
+        setgroupsList(groupList);
       },
     });
   }, []);
