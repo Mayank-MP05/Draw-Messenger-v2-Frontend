@@ -29,7 +29,10 @@ const ChatViewHomePage = ({ userHandler, groupHandler }) => {
           <UserCard userHandler={userHandler} />
         </div>
         <div className="md:w-8/12 p-2 sm:w-full">
-          <ChatComponent groupHandler={groupHandler} />
+          <ChatComponent
+            groupHandler={groupHandler}
+            userHandler={userHandler}
+          />
         </div>
       </div>
     </>

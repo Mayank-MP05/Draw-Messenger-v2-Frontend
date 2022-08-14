@@ -75,8 +75,8 @@ const DrawingCanvasComponent = () => {
           onChange={(e) => setBrushRadius(e.target.value)}
         />
         <button
-          onClick={() => {
-            console.log("Send Img");
+          onClick={(e) => {
+            saveableCanvas.getDataURL();
           }}
         >
           Send
