@@ -24,6 +24,10 @@ const MessageWritePanel = ({ user, group, addMessageToQueue }) => {
 
   const msgSendBtnClickHandler = () => {
     if (messageInput) {
+      // Check if message has link in it
+      const isLinkPresent =
+        messageInput.includes("http") || messageInput.includes("www");
+
       const msgObjToSend = {
         type: "TEXT",
         content: messageInput,
@@ -31,6 +35,18 @@ const MessageWritePanel = ({ user, group, addMessageToQueue }) => {
         groupId: group._id,
         userId: "62e01d89b39acc922137766c",
       };
+
+      if (isLinkPresent) {
+        msgObjToSend["type"] = "LINK";
+        const slicedArray = messageInput.split(" ");
+        const linkFilter = slicedArray.filter((singleWord) => {
+          return singleWord.includes("http") || singleWord.includes("www");
+        });
+        if (linkFilter && linkFilter.length > 0) {
+          msgObjToSend["linkExtracted"] = linkFilter[0];
+        }
+      }
+
       const socket = io("http://localhost:9001");
       socket.emit("chat", msgObjToSend, (response) => {
         console.log(response);

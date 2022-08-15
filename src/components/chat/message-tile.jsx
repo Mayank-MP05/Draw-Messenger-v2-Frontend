@@ -49,7 +49,7 @@ const MessageTile = ({ isLoading, msgData }) => {
         )}
         {type === "LINK" ? (
           <span className="flex">
-            <div className="flex">
+            <div className="flex min-w-[80px] justify-center items-center">
               <img
                 className="w-16 h-16"
                 src={
@@ -61,10 +61,11 @@ const MessageTile = ({ isLoading, msgData }) => {
             </div>
             <div className="flex flex-col ">
               <h2 className="text-xl font-bold px-2">
-                {title || "Sample Link Title"}
+                {(title && title.slice(0, 25) + "...") || "Sample Link Title"}
               </h2>
               <p className="text-sm font-normal px-2 py-1">
-                {description || "Sample Link Description"}
+                {(description && description.slice(0, 75) + "...") ||
+                  "Sample Link Description"}
               </p>
             </div>
           </span>
