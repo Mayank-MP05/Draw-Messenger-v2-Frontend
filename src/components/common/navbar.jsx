@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import LoaderIcon from "../../assets/icons/loading-spinner-icon.svg";
 import { signOut } from "firebase/auth";
+import APIClient from "../../api/common";
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
@@ -16,6 +17,7 @@ const auth = getAuth();
 const Navbar = ({ userHandler, isLoggedInHandler }) => {
   const [loggedInUser, setLoggedInUser] = userHandler;
   const [isLoggedIn, setIsLoggedIn] = isLoggedInHandler;
+  const [loginBtnLoader, setloginBtnLoader] = useState(false);
 
   const loginBtnClick = () => {
     signInWithPopup(auth, provider)
@@ -23,8 +25,7 @@ const Navbar = ({ userHandler, isLoggedInHandler }) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        setLoggedInUser(user);
-        setIsLoggedIn(true);
+        loginUserToMongoDB(user);
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -43,17 +44,57 @@ const Navbar = ({ userHandler, isLoggedInHandler }) => {
   };
 
   useEffect(() => {
+    setloginBtnLoader(true);
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user);
-        setLoggedInUser(user);
-        setIsLoggedIn(true);
+        console.log("User: ", user);
+        loginUserToMongoDB(user);
       } else {
         setLoggedInUser({});
         setIsLoggedIn(false);
+        setloginBtnLoader(false);
       }
     });
   }, []);
+
+  const loginUserToMongoDB = (user) => {
+    const {
+      displayName,
+      email,
+      emailVerified,
+      metadata,
+      phoneNumber,
+      photoURL,
+    } = user;
+    const { createdAt, creationTime, lastLoginAt, lastSignInTime } = metadata;
+    APIClient({
+      route: "/user/auth",
+      payload: {
+        email,
+        fullname: displayName,
+        emailVerified,
+        createdAt,
+        lastLoginAt,
+        phoneNumber,
+        photoURL,
+      },
+      method: "POST",
+      successFn: (res) => {
+        if (res.result) {
+          console.log("res.results", res.result);
+          setLoggedInUser(res.result);
+          setIsLoggedIn(true);
+        }
+      },
+      errorFn: (err) => {
+        setLoggedInUser({});
+        setIsLoggedIn(false);
+      },
+      finallyFn: () => {
+        setloginBtnLoader(false);
+      },
+    });
+  };
 
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 shadow-lg">
@@ -91,11 +132,15 @@ const Navbar = ({ userHandler, isLoggedInHandler }) => {
                 ></path>
               </svg>
               <p className="hidden md:block">Sign in with Google</p>
-              <img
-                src={LoaderIcon}
-                className="animate-spin ml-2 mr-1 w-6 h-6"
-                alt=""
-              />
+              {loginBtnLoader ? (
+                <img
+                  src={LoaderIcon}
+                  className="animate-spin ml-2 mr-1 w-6 h-6"
+                  alt=""
+                />
+              ) : (
+                ""
+              )}
             </button>
           ) : (
             <div className="flex flex-row">

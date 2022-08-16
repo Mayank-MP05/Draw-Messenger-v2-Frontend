@@ -11,4 +11,3 @@ const firebaseConfig = {
 };
 
 export const FirebaseApp = initializeApp(firebaseConfig);
-console.log(FirebaseApp);

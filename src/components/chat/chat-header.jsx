@@ -5,7 +5,11 @@ import BackBtnIcon from "../../assets/icons/back-btn-icon.svg";
 const ChatHeader = ({ groupHandler }) => {
   const navigate = useNavigate();
   const [selectedGroup, setSelectedGroup] = groupHandler;
-  const { profilePic, name } = selectedGroup;
+  const { profilePic, name } = selectedGroup || {
+    profilePic:
+      "https://mir-s3-cdn-cf.behance.net/project_modules/disp/04de2e31234507.564a1d23645bf.gif",
+    name: "loading...",
+  };
   const changeRoute = () => {
     navigate("/");
   };

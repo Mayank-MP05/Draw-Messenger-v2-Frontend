@@ -12,9 +12,8 @@ import HomePage from "./pages/home.page";
 import LandingPage from "./pages/landing.page";
 import TestComp from "./components/common/test";
 const RouterLocal = ({ isLoggedInHandler, userHandler, groupHandler }) => {
-  // console.log(isLoggedInHandler);
-  // const [isLoggedIn, setIsLoggedIn] = isLoggedInHandler;
-  const isLoggedIn = true;
+  const [isLoggedIn, setIsLoggedIn] = isLoggedInHandler;
+  
   return (
     <>
       <Routes>
