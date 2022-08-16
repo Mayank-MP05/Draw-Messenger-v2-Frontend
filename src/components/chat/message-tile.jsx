@@ -2,12 +2,13 @@ import React from "react";
 import SpinnerIcon from "../../assets/icons/loading-spinner-icon.svg";
 import SingleTickIcon from "../../assets/icons/single-tick-icon.svg";
 
-const MessageTile = ({ isLoading, msgData }) => {
+const MessageTile = ({ isLoading, msgData, user }) => {
   const msgDataLocal = msgData || {
     type: "TEXT",
     createdAt: new Date().getTime(),
     createdBy: "wghfbsjfddfsf",
     groupId: "sdfkjsfhksd",
+    userId: "",
     content: "msg from local",
     title: "",
     description: "",
@@ -24,7 +25,13 @@ const MessageTile = ({ isLoading, msgData }) => {
     imgUrl,
   } = msgDataLocal;
   return (
-    <li className="flex justify-end">
+    <li
+      className={`flex ${
+        (user && user._id) === msgDataLocal.userId
+          ? "justify-end"
+          : "justify-start"
+      }`}
+    >
       <div className="relative max-w-xl px-4 py-2 text-gray-700 rounded shadow">
         {type === "TEXT" ? (
           <span className="block">
