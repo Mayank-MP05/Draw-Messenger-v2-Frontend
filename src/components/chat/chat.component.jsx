@@ -3,15 +3,30 @@ import Picker from "emoji-picker-react";
 import ChatHeader from "./chat-header";
 import MessageTile from "./message-tile";
 import MessageWritePanel from "./message-write-panel";
+import { io } from "socket.io-client";
+
 const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
   const [selectedGroup, setSelectedGroup] = groupHandler;
   const [user, setUser] = userHandler;
   const [localMessageList, setLocalMessageList] = useState([...messageList]);
   const [messagesEnd, setMessagesEnd] = useState(null);
-
+  const [socket, setSocket] = useState(null);
+  const newSocket = io("http://localhost:9001");
+  newSocket.on("chat", (msgRecieved) => {
+    console.log("SOCKET Incoming", msgRecieved);
+    addMessageToQueue(msgRecieved);
+  });
   useEffect(() => {
     setLocalMessageList(messageList);
     scrollToBottomMsgQueue();
+
+    // const newSocket = io("http://localhost:9001");
+    // setSocket(newSocket);
+
+    // newSocket.on("chat", (msgRecieved) => {
+    //   console.log("SOCKET Incoming", msgRecieved);
+    //   addMessageToQueue(msgRecieved);
+    // });
   }, [messageList]);
 
   const addMessageToQueue = (newMessageObj) => {
@@ -20,7 +35,7 @@ const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
   };
 
   const scrollToBottomMsgQueue = () => {
-    messagesEnd.scrollIntoView({ behavior: "smooth" });
+    if (messagesEnd) messagesEnd.scrollIntoView({ behavior: "smooth" });
   };
   return (
     <div className="w-full">
@@ -31,7 +46,7 @@ const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
           style={{ height: "50vh" }}
         >
           {localMessageList.map((singleMsgObj) => (
-            <MessageTile isLoading={false} msgData={singleMsgObj} />
+            <MessageTile isLoading={false} msgData={singleMsgObj} user={user} />
           ))}
           <div
             style={{ float: "left", clear: "both" }}
