@@ -10,7 +10,7 @@ import APIClient from "../api/common";
 const ChatViewHomePage = ({ userHandler, groupHandler }) => {
   const [loggedInUser, setLoggedInUser] = userHandler;
   const [loading, setLoading] = useState(true);
-  const [group, setGroup] = useState(null);
+  const [group, setGroup] = groupHandler;
   const [messageList, setMessageList] = useState([]);
 
   const { id } = useParams();

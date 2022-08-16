@@ -12,30 +12,31 @@ const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
   const [messagesEnd, setMessagesEnd] = useState(null);
   const [socket, setSocket] = useState(null);
   const newSocket = io("http://localhost:9001");
+
   newSocket.on("chat", (msgRecieved) => {
     console.log("SOCKET Incoming", msgRecieved);
     addMessageToQueue(msgRecieved);
   });
+
   useEffect(() => {
     setLocalMessageList(messageList);
     scrollToBottomMsgQueue();
-
-    // const newSocket = io("http://localhost:9001");
-    // setSocket(newSocket);
-
-    // newSocket.on("chat", (msgRecieved) => {
-    //   console.log("SOCKET Incoming", msgRecieved);
-    //   addMessageToQueue(msgRecieved);
-    // });
+    window.addEventListener("DOMContentLoaded", () => {
+      scrollToBottomMsgQueue();
+    });
   }, [messageList]);
 
   const addMessageToQueue = (newMessageObj) => {
-    setLocalMessageList([...localMessageList, newMessageObj]);
-    scrollToBottomMsgQueue();
+    const { _id } = selectedGroup;
+    if (newMessageObj.groupId === _id) {
+      setLocalMessageList([...localMessageList, newMessageObj]);
+      scrollToBottomMsgQueue();
+    }
   };
 
   const scrollToBottomMsgQueue = () => {
-    if (messagesEnd) messagesEnd.scrollIntoView({ behavior: "smooth" });
+    if (messagesEnd)
+      messagesEnd.scrollIntoView({ behavior: "smooth", block: "end" });
   };
   return (
     <div className="w-full">
@@ -49,7 +50,7 @@ const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
             <MessageTile isLoading={false} msgData={singleMsgObj} user={user} />
           ))}
           <div
-            style={{ float: "left", clear: "both" }}
+            style={{ clear: "both" }}
             ref={(el) => {
               setMessagesEnd(el);
             }}

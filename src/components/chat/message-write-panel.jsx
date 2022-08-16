@@ -48,6 +48,7 @@ const MessageWritePanel = ({ user, group, addMessageToQueue }) => {
       }
 
       const socket = io("http://localhost:9001");
+      const { groupId } = msgObjToSend;
       socket.emit("chat", msgObjToSend, (response) => {
         console.log(response);
       });
@@ -68,13 +69,14 @@ const MessageWritePanel = ({ user, group, addMessageToQueue }) => {
       userId: "62e01d89b39acc922137766c",
     };
     const socket = io("http://localhost:9001");
+    const { groupId } = msgObjToSend;
     socket.emit("chat", msgObjToSend, (response) => {
       console.log("%c SOCKET", "background: green;color:white", "Emit Success");
     });
-    socket.on("chat", (payload) => {
-      console.log(`%c SOCKET `, "background: green;color:white");
-      addMessageToQueue(payload);
-    });
+    // socket.on("chat", (payload) => {
+    //   console.log(`%c SOCKET `, "background: green;color:white");
+    //   addMessageToQueue(payload);
+    // });
     setShowDrawingCanvas(false);
   };
 
