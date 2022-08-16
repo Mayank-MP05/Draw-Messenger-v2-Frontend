@@ -7,15 +7,21 @@ const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
   const [selectedGroup, setSelectedGroup] = groupHandler;
   const [user, setUser] = userHandler;
   const [localMessageList, setLocalMessageList] = useState([...messageList]);
+  const [messagesEnd, setMessagesEnd] = useState(null);
 
   useEffect(() => {
     setLocalMessageList(messageList);
+    scrollToBottomMsgQueue();
   }, [messageList]);
 
   const addMessageToQueue = (newMessageObj) => {
     setLocalMessageList([...localMessageList, newMessageObj]);
+    scrollToBottomMsgQueue();
   };
 
+  const scrollToBottomMsgQueue = () => {
+    messagesEnd.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <div className="w-full">
       <ChatHeader groupHandler={groupHandler} />
@@ -27,6 +33,12 @@ const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
           {localMessageList.map((singleMsgObj) => (
             <MessageTile isLoading={false} msgData={singleMsgObj} />
           ))}
+          <div
+            style={{ float: "left", clear: "both" }}
+            ref={(el) => {
+              setMessagesEnd(el);
+            }}
+          ></div>
           <MessageTile
             isLoading={false}
             msgData={{
