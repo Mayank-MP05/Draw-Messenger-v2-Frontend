@@ -46,8 +46,13 @@ const ChatComponent = ({ groupHandler, userHandler, messageList }) => {
           className="space-y-2 overflow-y-auto overflow-x-hidden h-4/6"
           style={{ height: "50vh" }}
         >
-          {localMessageList.map((singleMsgObj) => (
-            <MessageTile isLoading={false} msgData={singleMsgObj} user={user} />
+          {localMessageList.map((singleMsgObj, key) => (
+            <MessageTile
+              key={key}
+              isLoading={false}
+              msgData={singleMsgObj}
+              user={user}
+            />
           ))}
           <div
             style={{ clear: "both" }}
