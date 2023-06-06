@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Draw Messenger Frontend →
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a front-end project for a chatting application with text/drawings chat feature, built using React and Socket.IO client. The application allows users to communicate with each other by sending text messages and also provides a drawing canvas where users can collaborate by drawing together in real-time.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Real-time text messaging: Users can send and receive text messages in real-time.
+- Drawing canvas: Users can collaborate and draw together on a shared canvas.
+- Multiple users: The application supports multiple users and allows them to chat and draw simultaneously.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React: A JavaScript library for building user interfaces.
+- Socket.IO client: A JavaScript library that enables real-time, bidirectional communication between the browser and the server.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Prerequisites
 
-### `npm test`
+Before running this application, ensure that you have the following software installed on your machine:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js: Version 14 or above.
+- npm: Package manager for Node.js.
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Follow these steps to run the application on your local machine:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone <repository_url>
+```
 
-### `npm run eject`
+2. Navigate to the project directory:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+cd <project_directory>
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Install the dependencies:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. Start the application:
 
-## Learn More
+```bash
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5. The application should now be running on http://localhost:3000. Open this URL in your web browser.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Configuration
 
-### Code Splitting
+The application requires a WebSocket server to handle the real-time communication. By default, it assumes the server is running at http://localhost:8000. If your server is running on a different address or port, you can modify the configuration in the src/utils/socket.js file.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Usage
 
-### Analyzing the Bundle Size
+- Open the application in your web browser.
+- Use the signin with google option to login to the application.
+- Type a message in the input box and press Enter to send a text message.
+- Click on the drawing canvas tab to switch to the drawing mode.
+- Use the drawing tools to draw on the canvas. Your drawings will be visible to other users in real-time.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Acknowledgements
+- React - A JavaScript library for building user interfaces.
+- Socket.IO - A JavaScript library for real-time, bidirectional communication.
+- React-Canvas-Drawing - A React component for drawing on a canvas.
+Thank you for using our chatting app! We hope you have a great experience.
