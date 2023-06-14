@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_ENDPOINT = "http://localhost:9000";
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 const APIClient = ({
   route = "/",
   payload = {},
