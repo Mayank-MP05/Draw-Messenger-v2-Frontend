@@ -13,6 +13,29 @@ This is a front-end project for a chatting application with text/drawings chat f
 - React: A JavaScript library for building user interfaces.
 - Socket.IO client: A JavaScript library that enables real-time, bidirectional communication between the browser and the server.
 
+## Feature Screenshots
+
+##### Landing Page
+![Landing Page](https://github.com/Mayank-MP05/Draw-Messenger-v2-Frontend/blob/master/docs/landing-page.png?raw=true)
+
+##### Chat Features
+![Chat Features](https://github.com/Mayank-MP05/Draw-Messenger-v2-Frontend/blob/master/docs/chat-features.png?raw=true)
+
+##### Chat View
+![Chat View](https://github.com/Mayank-MP05/Draw-Messenger-v2-Frontend/blob/master/docs/chat-view.png?raw=true)
+
+##### Drawing Board Feature
+![Drawing Board Feature](https://github.com/Mayank-MP05/Draw-Messenger-v2-Frontend/blob/master/docs/drawing-board-feature.png?raw=true)
+
+##### Landing Page
+![Landing Page](https://github.com/Mayank-MP05/Draw-Messenger-v2-Frontend/blob/master/docs/landing-page.png?raw=true)
+
+##### Post Login Group List View
+![Post Login Group List View](https://github.com/Mayank-MP05/Draw-Messenger-v2-Frontend/blob/master/docs/post-login-group-list-view.png?raw=true)
+
+##### Types of Messages
+![Types of Messages](https://github.com/Mayank-MP05/Draw-Messenger-v2-Frontend/blob/master/docs/types-of-messages.png?raw=true)
+
 ## Prerequisites
 
 Before running this application, ensure that you have the following software installed on your machine:
@@ -27,13 +50,13 @@ Follow these steps to run the application on your local machine:
 1. Clone the repository:
 
 ```bash
-git clone <repository_url>
+git clone https://github.com/Mayank-MP05/Draw-Messenger-v2-Frontend.git
 ```
 
 2. Navigate to the project directory:
 
 ```bash
-cd <project_directory>
+cd Draw-Messenger-v2-Frontend
 ```
 
 3. Install the dependencies:
@@ -52,7 +75,7 @@ npm start
 
 ## Configuration
 
-The application requires a WebSocket server to handle the real-time communication. By default, it assumes the server is running at http://localhost:8000. If your server is running on a different address or port, you can modify the configuration in the src/utils/socket.js file.
+The application requires a WebSocket server to handle the real-time communication. By default, it assumes the server is running at http://localhost:9001. If your server is running on a different address or port, you can modify the configuration in the .env file.
 
 ## Usage
 
